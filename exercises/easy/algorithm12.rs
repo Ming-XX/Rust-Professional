@@ -13,7 +13,22 @@ use std::fmt::{self, Display, Formatter};
 
 pub fn is_palindrome(s: String) -> bool {
     // TODO: Implement the logic to check if the string is a palindrome
-    false // Placeholder return value
+    let mut s_original=Vec::new();
+    for i in s.chars(){
+        if matches!(i, 'A'..='Z' | 'a'..='z'){
+            s_original.push(i as u8);
+        }
+    }
+
+    s_original.make_ascii_lowercase();
+    let mut s_reverse=s_original.clone();
+    s_reverse.reverse();
+        
+    if s_original == s_reverse{
+        true
+    }else{
+        false // Placeholder return value
+    }
 }
 
 #[cfg(test)]

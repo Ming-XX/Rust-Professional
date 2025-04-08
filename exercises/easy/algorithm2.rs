@@ -73,7 +73,27 @@ impl<T> LinkedList<T> {
         }
     }
 	pub fn reverse(&mut self){
-		// TODO
+		// TODO        
+        let temp=self.start;
+        self.start=self.end;
+        self.end=temp;
+
+        for i in 0..self.length as i32{
+            let i_ptr = unsafe{&mut (*trans(self.start,i).unwrap().as_ptr())};
+            let transfer = i_ptr.prev;
+            i_ptr.prev = i_ptr.next;
+            i_ptr.next=transfer;
+        }
+
+        pub fn trans<T>(node:Option<NonNull<Node<T>>>, index:i32)-> Option<NonNull<Node<T>>>{
+            match node{
+                None => None,
+                Some(next_ptr) => match index {
+                0 => Some(next_ptr),
+                _ => trans(unsafe { (*next_ptr.as_ptr()).next }, index - 1),
+                }
+            }
+        }     
 	}
 }
 
